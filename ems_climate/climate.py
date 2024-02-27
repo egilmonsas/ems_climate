@@ -11,10 +11,10 @@ ELEMENTS = "sum(precipitation_amount P1D), mean(surface_downwelling_shortwave_fl
 class ClimateConnection:
     @staticmethod
     def get_climate_data(
+        api_key: str,
         hydrological_station: str = "SN18700",
         date_range: Tuple[str, str] = ("2024-01-01", "2025-01-01"),
         elements: str = ELEMENTS_MINIMAL,
-        api_key: str,
     ) -> pd.DataFrame:
         """
         api_key: str -> met.no api key (https://frost.met.no/howto.html)
