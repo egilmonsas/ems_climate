@@ -14,5 +14,3 @@ requests = "^2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-pythonpath = "src"
