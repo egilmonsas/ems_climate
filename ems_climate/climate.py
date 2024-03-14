@@ -172,7 +172,7 @@ class ClimateConnection:
                 else:
                     df_met.loc[i, "snowdepth"] = 0
         df_met = df_met.set_index("referenceTime")
-        df_met.index = df_met.index.tz_localize(None)
+        df_met.index = pd.to_datetime(df_met.index, format="%Y-%m-%d").tz_localize(None)
         df_met["delta_snow"] = df_met["snowdepth"] - (
             df_met["snowdepth"].shift(1)
         ).fillna(0)
