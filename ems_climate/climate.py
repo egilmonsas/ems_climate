@@ -5,6 +5,7 @@ import requests
 
 ELEMENTS_MINIMAL = "sum(precipitation_amount P1D), mean(air_temperature P1D), mean(air_pressure_at_sea_level P1D)"  # ", mean(wind_speed P1D), max(relative_humidity P1D)") #INPUT_insert additional elements
 ELEMENTS = "sum(precipitation_amount P1D), mean(surface_downwelling_shortwave_flux_in_air PT1H), mean(wind_speed P1D), mean(air_temperature P1D), min(air_temperature P1D), max(air_temperature P1D), min(relative_humidity P1D),max(relative_humidity P1D), mean(air_pressure_at_sea_level P1D)"  # ", mean(wind_speed P1D), max(relative_humidity P1D)") #INPUT_insert additional elements
+ELEMENTS_TEMP = "mean(air_temperature P1H)"  # ", mean(wind_speed P1D), max(relative_humidity P1D)") #INPUT_insert additional elements
 
 
 class ClimateConnection:
@@ -12,6 +13,7 @@ class ClimateConnection:
     def get_climate_data(
         api_key: str,
         hydrological_station: str = "SN18700",
+        time_resolution=None,
         date_range: Tuple[str, str] = ("2024-01-01", "2025-01-01"),
         elements: str = ELEMENTS_MINIMAL,
     ) -> pd.DataFrame:
@@ -29,6 +31,9 @@ class ClimateConnection:
             "elements": elements,
             "referencetime": f"{date_range[0]}/{date_range[1]}",
         }
+
+        if time_resolution:
+            parameters["timeResolution"] = time_resolution
         # Issue an HTTP GET request
         r = requests.get(endpoint, parameters, auth=(api_key, ""))
         # Extract JSON data
