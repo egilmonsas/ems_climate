@@ -33,7 +33,7 @@ class ClimateConnection:
         }
 
         if time_resolution:
-            parameters["timeResolution"] = time_resolution
+            parameters["timeresolutions"] = time_resolution
         # Issue an HTTP GET request
         r = requests.get(endpoint, parameters, auth=(api_key, ""))
         # Extract JSON data
